@@ -473,35 +473,39 @@
       font-weight: 800;
     }
 
-    #issueTable .solved-select:disabled {
+    #issueTable .solved-select:disabled,
+    #issueTable .urgent-select:disabled {
       cursor: not-allowed;
       opacity: 0.65;
     }
 
-    #issueTable .issue-progress input {
-      display: block;
-      max-width: 70px;
-      text-align: center;
+    #issueTable .urgent-select {
+      font-weight: 800;
+      opacity: 1;
+    }
+
+    #issueTable .urgent-select.status-u0 {
+      background: var(--red-soft);
+      color: var(--red);
+      border-color: #fecaca;
+    }
+
+    #issueTable .urgent-select.status-u1 {
+      background: #fef3c7;
+      color: #92400e;
+      border-color: #fcd34d;
+    }
+
+    #issueTable .urgent-select.status-u2,
+    #issueTable .urgent-select.status-u3 {
+      background: var(--green-soft);
+      color: var(--green);
+      border-color: #bbf7d0;
     }
 
     #issueTable .issue-tracking-notes textarea {
       min-height: 96px;
       line-height: 1.45;
-    }
-
-    .progress-track {
-      width: 100%;
-      height: 8px;
-      border-radius: 999px;
-      background: #e5e7eb;
-      overflow: hidden;
-      margin-top: 6px;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: var(--blue);
-      border-radius: 999px;
     }
 
     .dept-list {
@@ -733,7 +737,7 @@
               <tr>
                 <th class="issue-description">Issue Description</th>
                 <th>Block</th>
-                <th>Progress</th>
+                <th>Urgent Status</th>
                 <th>Solved</th>
                 <th>Owner</th>
                 <th>Due Date</th>
@@ -744,7 +748,7 @@
               <tr>
                 <td class="issue-description" data-editable="true">n77 Tx power cannot meet target under HPUE mode</td>
                 <td><select class="block-select" disabled><option selected>Yes</option><option>No</option></select></td>
-                <td class="issue-progress"><input type="number" min="0" max="100" value="65" disabled oninput="syncProgress(this)" /><div class="progress-track"><div class="progress-fill" style="width:65%"></div></div></td>
+                <td><select class="urgent-select" disabled><option value="U0" disabled>U0</option><option selected>U1</option><option>U2</option><option>U3</option></select></td>
                 <td><select class="solved-select" disabled><option selected>No</option><option>Yes</option></select></td>
                 <td data-editable="true">RF Team</td>
                 <td><input type="date" value="2026-07-05" disabled /></td>
@@ -753,7 +757,7 @@
               <tr>
                 <td class="issue-description" data-editable="true">ENDC B66 + n2 desense issue found during regression test</td>
                 <td><select class="block-select" disabled><option selected>Yes</option><option>No</option></select></td>
-                <td class="issue-progress"><input type="number" min="0" max="100" value="45" disabled oninput="syncProgress(this)" /><div class="progress-track"><div class="progress-fill" style="width:45%"></div></div></td>
+                <td><select class="urgent-select" disabled><option value="U0" disabled>U0</option><option selected>U1</option><option>U2</option><option>U3</option></select></td>
                 <td><select class="solved-select" disabled><option selected>No</option><option>Yes</option></select></td>
                 <td data-editable="true">Baseband Team</td>
                 <td><input type="date" value="2026-07-12" disabled /></td>
@@ -762,7 +766,7 @@
               <tr>
                 <td class="issue-description" data-editable="true">Antenna TRP degradation observed after mechanical change</td>
                 <td><select class="block-select" disabled><option selected>Yes</option><option>No</option></select></td>
-                <td class="issue-progress"><input type="number" min="0" max="100" value="55" disabled oninput="syncProgress(this)" /><div class="progress-track"><div class="progress-fill" style="width:55%"></div></div></td>
+                <td><select class="urgent-select" disabled><option value="U0" disabled>U0</option><option selected>U1</option><option>U2</option><option>U3</option></select></td>
                 <td><select class="solved-select" disabled><option selected>No</option><option>Yes</option></select></td>
                 <td data-editable="true">Antenna Team</td>
                 <td><input type="date" value="2026-07-08" disabled /></td>
@@ -771,7 +775,7 @@
               <tr>
                 <td class="issue-description" data-editable="true">GCF certification test case failure in RF conformance</td>
                 <td><select class="block-select" disabled><option>Yes</option><option selected>No</option></select></td>
-                <td class="issue-progress"><input type="number" min="0" max="100" value="70" disabled oninput="syncProgress(this)" /><div class="progress-track"><div class="progress-fill" style="width:70%"></div></div></td>
+                <td><select class="urgent-select" disabled><option value="U0" disabled>U0</option><option>U1</option><option selected>U2</option><option>U3</option></select></td>
                 <td><select class="solved-select" disabled><option selected>No</option><option>Yes</option></select></td>
                 <td data-editable="true">Certification Team</td>
                 <td><input type="date" value="2026-07-15" disabled /></td>
@@ -780,7 +784,7 @@
               <tr>
                 <td class="issue-description" data-editable="true">Thermal throttling impacts 5G throughput performance</td>
                 <td><select class="block-select" disabled><option selected>Yes</option><option>No</option></select></td>
-                <td class="issue-progress"><input type="number" min="0" max="100" value="50" disabled oninput="syncProgress(this)" /><div class="progress-track"><div class="progress-fill" style="width:50%"></div></div></td>
+                <td><select class="urgent-select" disabled><option value="U0" disabled>U0</option><option>U1</option><option selected>U2</option><option>U3</option></select></td>
                 <td><select class="solved-select" disabled><option selected>No</option><option>Yes</option></select></td>
                 <td data-editable="true">Thermal Team</td>
                 <td><input type="date" value="2026-07-10" disabled /></td>
@@ -904,10 +908,6 @@
         syncDepartmentBars();
       }
 
-      if (!isEditing && cardId === "issueCard") {
-        card.querySelectorAll(".issue-progress input").forEach(syncProgress);
-      }
-
       if (cardId === "issueCard") {
         syncAllIssueRows(isEditing);
       }
@@ -982,24 +982,29 @@
       setTimelineMarkerPercent(getTimelinePercent(1));
     }
 
-    function syncProgress(input) {
-      const value = Math.max(0, Math.min(100, Number(input.value) || 0));
-      input.value = value;
-      const fill = input.closest(".issue-progress").querySelector(".progress-fill");
-      fill.style.width = value + "%";
+    function syncUrgentStatus(select) {
+      const status = select.value.toLowerCase();
+      select.classList.remove("status-u0", "status-u1", "status-u2", "status-u3");
+      select.classList.add("status-" + status);
     }
 
     function syncIssueRow(row, isEditing) {
       const blockSelect = row.querySelector(".block-select");
+      const urgentSelect = row.querySelector(".urgent-select");
       const solvedSelect = row.querySelector(".solved-select");
       const isBlocked = blockSelect.value === "Yes";
 
       if (isBlocked) {
+        urgentSelect.value = "U0";
         solvedSelect.value = "No";
+      } else if (urgentSelect.value === "U0") {
+        urgentSelect.value = "U1";
       }
 
       blockSelect.classList.toggle("status-yes", isBlocked);
       blockSelect.classList.toggle("status-no", !isBlocked);
+      syncUrgentStatus(urgentSelect);
+      urgentSelect.disabled = !isEditing || isBlocked;
       solvedSelect.disabled = !isEditing || isBlocked;
     }
 
@@ -1007,6 +1012,25 @@
       document.querySelectorAll("#issueTable tbody tr").forEach(function (row) {
         syncIssueRow(row, isEditing);
       });
+    }
+
+    function reorderIssueRow(row) {
+      const tbody = row && row.closest("tbody");
+      if (!tbody) return;
+
+      const isBlocked = row.querySelector(".block-select").value === "Yes";
+      if (!isBlocked) {
+        tbody.appendChild(row);
+        return;
+      }
+
+      const firstUnblockedRow = Array.from(tbody.rows).find(function (issueRow) {
+        return issueRow !== row && issueRow.querySelector(".block-select").value === "No";
+      });
+
+      if (firstUnblockedRow) {
+        tbody.insertBefore(row, firstUnblockedRow);
+      }
     }
 
     function toggleDept(summary) {
@@ -1069,7 +1093,7 @@
           return {
             description: cells[0].innerText.trim(),
             block: cells[1].querySelector("select").value,
-            progress: cells[2].querySelector("input").value,
+            urgentStatus: cells[2].querySelector("select").value,
             solved: cells[3].querySelector("select").value,
             owner: cells[4].innerText.trim(),
             dueDate: cells[5].querySelector("input").value,
@@ -1144,12 +1168,11 @@
           const cells = row.querySelectorAll("td");
           cells[0].innerText = issue.description || "";
           cells[1].querySelector("select").value = issue.block || "No";
-          cells[2].querySelector("input").value = issue.progress || "0";
+          cells[2].querySelector("select").value = issue.urgentStatus || "U3";
           cells[3].querySelector("select").value = issue.solved || "No";
           cells[4].innerText = issue.owner || "";
           cells[5].querySelector("input").value = issue.dueDate || "";
           cells[6].querySelector("textarea").value = issue.trackingNotes || "";
-          syncProgress(cells[2].querySelector("input"));
           syncIssueRow(row, document.getElementById("issueCard").classList.contains("editing"));
         });
       }
@@ -1181,7 +1204,6 @@
 
     function exportDashboardData() {
       syncDepartmentBars();
-      document.querySelectorAll(".issue-progress input").forEach(syncProgress);
       syncAllIssueRows(document.getElementById("issueCard").classList.contains("editing"));
 
       const data = getDashboardData();
@@ -1235,14 +1257,14 @@
 
     function collectIssuesHtml() {
       let html = "<table border='1' cellspacing='0' cellpadding='6' style='border-collapse:collapse;width:100%;'>";
-      html += "<tr><th>Issue Description</th><th>Block</th><th>Progress</th><th>Solved</th><th>Owner</th><th>Due Date</th><th>Tracking Notes</th></tr>";
+      html += "<tr><th>Issue Description</th><th>Block</th><th>Urgent Status</th><th>Solved</th><th>Owner</th><th>Due Date</th><th>Tracking Notes</th></tr>";
 
       document.querySelectorAll("#issueTable tbody tr").forEach(function (row) {
         const cells = row.querySelectorAll("td");
         html += "<tr>";
         html += "<td>" + escapeHtml(cells[0].innerText) + "</td>";
         html += "<td>" + escapeHtml(cells[1].querySelector("select").value) + "</td>";
-        html += "<td>" + escapeHtml(cells[2].querySelector("input").value + "%") + "</td>";
+        html += "<td>" + escapeHtml(cells[2].querySelector("select").value) + "</td>";
         html += "<td>" + escapeHtml(cells[3].querySelector("select").value) + "</td>";
         html += "<td>" + escapeHtml(cells[4].innerText) + "</td>";
         html += "<td>" + escapeHtml(cells[5].querySelector("input").value) + "</td>";
@@ -1346,7 +1368,15 @@
       document.querySelectorAll("#issueTable .block-select").forEach(function (select) {
         select.addEventListener("change", function () {
           const issueCard = document.getElementById("issueCard");
-          syncIssueRow(select.closest("tr"), issueCard.classList.contains("editing"));
+          const row = select.closest("tr");
+          syncIssueRow(row, issueCard.classList.contains("editing"));
+          reorderIssueRow(row);
+        });
+      });
+
+      document.querySelectorAll("#issueTable .urgent-select").forEach(function (select) {
+        select.addEventListener("change", function () {
+          syncUrgentStatus(select);
         });
       });
 
